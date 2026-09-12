@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const API_BASE = "";
   const API = `${API_BASE}/api/auth`;
 
@@ -61,7 +61,7 @@
         logoutBtn.addEventListener("click", async (e) => {
           e.preventDefault();
           await request("/logout", { method: "POST", body: JSON.stringify({ all_devices: false }) });
-          toast("Đã đăng xuất");
+          toast("ÄĂ£ Ä‘Äƒng xuáº¥t");
           window.location.href = "/index.html";
         });
       }
@@ -91,7 +91,7 @@
             method: "POST",
             body: JSON.stringify(payload)
           });
-          toast(`Đăng nhập thành công: ${data.username}`);
+          toast(`ÄÄƒng nháº­p thĂ nh cĂ´ng: ${data.username}`);
           window.location.href = "/account.html";
         } catch (err) {
           toast(err.message || "Login failed");
@@ -112,7 +112,7 @@
         };
         try {
           await request("/register", { method: "POST", body: JSON.stringify(payload) });
-          toast("Đăng ký thành công");
+          toast("ÄÄƒng kĂ½ thĂ nh cĂ´ng");
           window.location.href = "/account.html";
         } catch (err) {
           toast(err.message || "Register failed");
@@ -123,7 +123,7 @@
     const accountMe = document.getElementById("account-me");
     if (accountMe) {
       bindAuthWidgets().then((user) => {
-        accountMe.textContent = user ? `${user.username} (${user.email})` : "Chưa đăng nhập";
+        accountMe.textContent = user ? `${user.username} (${user.email})` : "ChÆ°a Ä‘Äƒng nháº­p";
       });
     }
 
@@ -131,10 +131,10 @@
     if (adminStats) {
       request("/admin/stats", { method: "GET" })
         .then((stats) => {
-          adminStats.innerHTML = `<li>Tổng user: ${stats.total_users}</li><li>Active user: ${stats.active_users}</li><li>Session đang hoạt động: ${stats.active_sessions}</li>`;
+          adminStats.innerHTML = `<li>Tá»•ng user: ${stats.total_users}</li><li>Active user: ${stats.active_users}</li><li>Session Ä‘ang hoáº¡t Ä‘á»™ng: ${stats.active_sessions}</li>`;
         })
         .catch(() => {
-          adminStats.innerHTML = "<li>Không có quyền admin hoặc chưa đăng nhập.</li>";
+          adminStats.innerHTML = "<li>KhĂ´ng cĂ³ quyá»n admin hoáº·c chÆ°a Ä‘Äƒng nháº­p.</li>";
         });
     }
   };
@@ -144,3 +144,4 @@
     bindAuthForms();
   });
 })();
+

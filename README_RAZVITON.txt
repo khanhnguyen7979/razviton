@@ -1,6 +1,6 @@
-RAZVITON WEBSITE V2
+﻿RAZVITON WEBSITE V2
 Primary domain purchased by owner: razviton.com
-Brand line: TỪ TRÍ THỨC ĐẾN GIÁ TRỊ / FROM INTELLIGENCE TO REAL VALUE
+Brand line: Tá»ª TRĂ THá»¨C Äáº¾N GIĂ TRá» / FROM INTELLIGENCE TO REAL VALUE
 
 Current state:
 - Static multi-page prototype
@@ -20,3 +20,4 @@ Next before publishing:
 4. Finalize tokenomics + legal review
 5. Add sanitized live Nation API/dashboard
 6. Mobile QA + security headers + deployment config
+
