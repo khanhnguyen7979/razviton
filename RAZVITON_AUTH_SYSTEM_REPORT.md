@@ -1,4 +1,4 @@
-# RAZVITON AUTH SYSTEM REPORT
+﻿# RAZVITON AUTH SYSTEM REPORT
 
 ## SOURCE
 - Backup: `C:\Users\KHANH79\Downloads\KhanhAI\KhanhAI` (contains requested task context)
@@ -50,4 +50,5 @@ python secret_scan.py
 
 ## NOTES
 - PATH of executable files in this environment was mapped under `/RAZVITON_APP`.
-- Tests and runtime verification were prepared but chưa execute được tự động trong phiên làm việc hiện tại do shell runner bị lỗi CreateProcess 267.
+- Tests and runtime verification were prepared but chÆ°a execute Ä‘Æ°á»£c tá»± Ä‘á»™ng trong phiĂªn lĂ m viá»‡c hiá»‡n táº¡i do shell runner bá»‹ lá»—i CreateProcess 267.
+

@@ -1,4 +1,4 @@
-RAZVITON WEB READY
+﻿RAZVITON WEB READY
 
 Local Windows:
 1. cd <project>\backend
@@ -15,3 +15,4 @@ Internet:
 Important:
 SQLite is suitable for the current prototype/login stage. Before substantial public traffic,
 move auth data to a managed persistent database (e.g. PostgreSQL) and add email verification.
+

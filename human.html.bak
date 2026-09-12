@@ -1,4 +1,4 @@
-﻿<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Economy · RAZVITON</title><link rel="stylesheet" href="/assets/style.css"></head><body>
 <div class="top">GENESIS PREPARATION · No capital accepted · No public token sale enabled</div>
 <div class="nav"><div class="w n"><a class="brand" href="/index.html">RAZVITON</a><div class="links"><a href="/nation.html">System</a><a href="/proof.html">Proof</a><a href="/products.html">Products</a><a href="/build.html">Build</a><a href="/human.html">Economy</a><a href="/genesis.html">Genesis</a><a href="/roadmap.html">Roadmap</a><a href="/transparency.html">Transparency</a><a id="auth-login-link" href="/login.html">Sign in</a><a id="auth-register-link" href="/register.html">Create account</a><a id="auth-account-link" href="/account.html" style="display:none">Account</a></div></div></div>
@@ -9,9 +9,8 @@
 <tr><td>Ecosystem & Growth</td><td>15%</td></tr><tr><td>Founder</td><td>8%</td></tr>
 <tr><td>Core Team</td><td>7%</td></tr><tr><td>Genesis Backers</td><td>5%</td></tr>
 <tr><td>Strategic Reserve</td><td>4%</td></tr><tr><td>Security / Audit</td><td>3%</td></tr>
-</table>
-<div class="notice">Token allocation remains DRAFT. Total supply, reference pricing, circulating supply, vesting and launch structure remain subject to stress testing and legal review.</div>
+<tr><td>Liquidity</td><td>3%</td></tr></table>
+<div class="notice">Total supply, reference pricing, circulating supply, liquidity design and any buyback/burn policy remain subject to stress testing and legal review before launch.</div>
 </div></section></main>
 <footer><div class="w"><b>RAZVITON</b> · From intelligence to real value.<br>Public claims must be backed by reproducible evidence.</div></footer>
 <script src="/assets/auth-bridge.js" defer></script></body></html>
-
