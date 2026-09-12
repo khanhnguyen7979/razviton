@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   const API_BASE = "";
   const API = `${API_BASE}/api/auth`;
 
@@ -61,7 +61,7 @@
         logoutBtn.addEventListener("click", async (e) => {
           e.preventDefault();
           await request("/logout", { method: "POST", body: JSON.stringify({ all_devices: false }) });
-          toast("Signed out");
+          toast("Đã đăng xuất");
           window.location.href = "/index.html";
         });
       }
@@ -91,7 +91,7 @@
             method: "POST",
             body: JSON.stringify(payload)
           });
-          toast(`Signed in successfully: ${data.username}`);
+          toast(`Đăng nhập thành công: ${data.username}`);
           window.location.href = "/account.html";
         } catch (err) {
           toast(err.message || "Login failed");
@@ -112,7 +112,7 @@
         };
         try {
           await request("/register", { method: "POST", body: JSON.stringify(payload) });
-          toast("Account created successfully");
+          toast("Đăng ký thành công");
           window.location.href = "/account.html";
         } catch (err) {
           toast(err.message || "Register failed");
@@ -123,7 +123,7 @@
     const accountMe = document.getElementById("account-me");
     if (accountMe) {
       bindAuthWidgets().then((user) => {
-        accountMe.textContent = user ? `${user.username} (${user.email})` : "Not signed in";
+        accountMe.textContent = user ? `${user.username} (${user.email})` : "Chưa đăng nhập";
       });
     }
 
@@ -134,7 +134,7 @@
           adminStats.innerHTML = `<li>Tổng user: ${stats.total_users}</li><li>Active user: ${stats.active_users}</li><li>Session đang hoạt động: ${stats.active_sessions}</li>`;
         })
         .catch(() => {
-          adminStats.innerHTML = "<li>Admin access required.</li>";
+          adminStats.innerHTML = "<li>Không có quyền admin hoặc chưa đăng nhập.</li>";
         });
     }
   };
@@ -144,4 +144,3 @@
     bindAuthForms();
   });
 })();
-

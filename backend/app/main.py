@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 import os
 from pathlib import Path
 from fastapi import FastAPI
@@ -9,7 +9,7 @@ from app.models import user as user_model
 from app.routes.auth import router as auth_router
 
 APP_DIR = Path(__file__).resolve().parents[2]
-PUBLIC_DIR = APP_DIR / "public"
+PUBLIC_DIR = APP_DIR
 
 app = FastAPI(title="RAZVITON", version="1.1.0")
 
@@ -36,4 +36,3 @@ def on_startup():
 
 # Mount last so /api and /health are resolved first.
 app.mount("/", StaticFiles(directory=str(PUBLIC_DIR), html=True), name="site")
-
