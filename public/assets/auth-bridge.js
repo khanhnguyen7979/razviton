@@ -61,7 +61,7 @@
         logoutBtn.addEventListener("click", async (e) => {
           e.preventDefault();
           await request("/logout", { method: "POST", body: JSON.stringify({ all_devices: false }) });
-          toast("Signed out");
+          toast("ÄĂ£ Ä‘Äƒng xuáº¥t");
           window.location.href = "/index.html";
         });
       }
@@ -91,7 +91,7 @@
             method: "POST",
             body: JSON.stringify(payload)
           });
-          toast(`Signed in successfully: ${data.username}`);
+          toast(`ÄÄƒng nháº­p thĂ nh cĂ´ng: ${data.username}`);
           window.location.href = "/account.html";
         } catch (err) {
           toast(err.message || "Login failed");
@@ -112,7 +112,7 @@
         };
         try {
           await request("/register", { method: "POST", body: JSON.stringify(payload) });
-          toast("Account created successfully");
+          toast("ÄÄƒng kĂ½ thĂ nh cĂ´ng");
           window.location.href = "/account.html";
         } catch (err) {
           toast(err.message || "Register failed");
@@ -123,7 +123,7 @@
     const accountMe = document.getElementById("account-me");
     if (accountMe) {
       bindAuthWidgets().then((user) => {
-        accountMe.textContent = user ? `${user.username} (${user.email})` : "Not signed in";
+        accountMe.textContent = user ? `${user.username} (${user.email})` : "ChÆ°a Ä‘Äƒng nháº­p";
       });
     }
 
@@ -131,10 +131,10 @@
     if (adminStats) {
       request("/admin/stats", { method: "GET" })
         .then((stats) => {
-          adminStats.innerHTML = `<li>Tổng user: ${stats.total_users}</li><li>Active user: ${stats.active_users}</li><li>Session đang hoạt động: ${stats.active_sessions}</li>`;
+          adminStats.innerHTML = `<li>Tá»•ng user: ${stats.total_users}</li><li>Active user: ${stats.active_users}</li><li>Session Ä‘ang hoáº¡t Ä‘á»™ng: ${stats.active_sessions}</li>`;
         })
         .catch(() => {
-          adminStats.innerHTML = "<li>Admin access required.</li>";
+          adminStats.innerHTML = "<li>KhĂ´ng cĂ³ quyá»n admin hoáº·c chÆ°a Ä‘Äƒng nháº­p.</li>";
         });
     }
   };
