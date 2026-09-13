@@ -1,10 +1,10 @@
 {
-    "name":  "RAZVITON",
-    "symbol":  "RAZV",
-    "description":  "RAZVITON is an AI operating organization designed to turn intelligence into real value through governed, evidence-based execution.",
-    "image":  "https://razviton.onrender.com/assets/razviton-token.png",
-    "external_url":  "https://razviton.onrender.com",
-    "mint":  "46cSSTLmuQYUwdTZY24oPV1eMwFJ9QWR7n2HBPCsXXdT",
-    "network":  "Solana Mainnet",
-    "decimals":  6
+  "name": "RAZVITON",
+  "symbol": "RAZV",
+  "description": "RAZVITON is an AI operating organization designed to turn intelligence into real value through governed, evidence-based execution.",
+  "image": "https://razviton.onrender.com/assets/razviton-token.svg",
+  "external_url": "https://razviton.onrender.com",
+  "mint": "46cSSTLmuQYUwdTZY24oPV1eMwFJ9QWR7n2HBPCsXXdT",
+  "network": "Solana Mainnet",
+  "decimals": 6
 }
