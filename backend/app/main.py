@@ -9,7 +9,7 @@ from app.models import user as user_model
 from app.routes.auth import router as auth_router
 
 APP_DIR = Path(__file__).resolve().parents[2]
-PUBLIC_DIR = APP_DIR
+PUBLIC_DIR = APP_DIR / "public"
 
 app = FastAPI(title="RAZVITON", version="1.1.0")
 
