@@ -6,6 +6,7 @@ from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.db.database import get_db
@@ -25,6 +26,14 @@ COOKIE_NAME = "razviton_sid"
 SESSION_TTL_SECONDS = 60 * 60 * 24 * 7
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+def registration_enabled() -> bool:
+    default = "0" if os.getenv("RENDER") else "1"
+    return os.getenv("RAZVITON_REGISTRATION_ENABLED", default) == "1"
+
+@router.get("/config", summary="Public account availability")
+def auth_config() -> dict[str, bool]:
+    return {"registration_enabled": registration_enabled()}
 
 
 def _cleanup_sessions(db: Session) -> None:
@@ -90,6 +99,8 @@ def _create_session(db: Session, user: User, request: Request) -> str:
 
 @router.post("/register", summary="Create account")
 def register(payload: RegisterRequest, request: Request, response: Response, db: Session = Depends(get_db)) -> dict[str, Any]:
+    if not registration_enabled():
+        raise HTTPException(status_code=503, detail="REGISTRATION_PAUSED")
     client_ip = _get_client_ip(request)
     if not auth_rate_limit.allow(f"register:{client_ip}"):
         raise HTTPException(status_code=429, detail="RATE_LIMIT")
@@ -98,7 +109,7 @@ def register(payload: RegisterRequest, request: Request, response: Response, db:
     username = payload.normalized_username()
     if not is_valid_email(email):
         raise HTTPException(status_code=400, detail="INVALID_EMAIL")
-    if db.query(User).filter((User.email == email) | (User.username == username)).first():
+    if db.query(User).filter((func.lower(User.email) == email) | (func.lower(User.username) == username)).first():
         raise HTTPException(status_code=409, detail="USER_EXISTS")
 
     user = User(
@@ -108,7 +119,11 @@ def register(payload: RegisterRequest, request: Request, response: Response, db:
         password_hash=hash_password(payload.password),
     )
     db.add(user)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=409, detail="USER_EXISTS") from None
     db.refresh(user)
     _cleanup_sessions(db)
     token = _create_session(db, user, request)
@@ -124,7 +139,9 @@ def login(payload: LoginRequest, request: Request, response: Response, db: Sessi
 
     ident = payload.normalized_identifier()
     _cleanup_sessions(db)
-    user = db.query(User).filter((User.email == ident) | (User.username == ident)).first()
+    matches = db.query(User).filter((func.lower(User.email) == ident) | (func.lower(User.username) == ident)).limit(2).all()
+    # Legacy case-colliding identities must not silently select the wrong account.
+    user = matches[0] if len(matches) == 1 else None
     if not user or not verify_password(payload.password, user.password_hash):
         raise HTTPException(status_code=401, detail="INVALID_CREDENTIALS")
     if not user.is_active:

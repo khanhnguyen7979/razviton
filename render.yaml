@@ -3,6 +3,7 @@ services:
     name: razviton
     runtime: python
     rootDir: .
+    healthCheckPath: /health
     buildCommand: pip install -r backend/requirements.txt
     startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
@@ -10,3 +11,5 @@ services:
         value: 3.12.8
       - key: RAZVITON_COOKIE_SECURE
         value: "1"
+      - key: RAZVITON_REGISTRATION_ENABLED
+        value: "0"

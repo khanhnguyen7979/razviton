@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   const API_BASE = "";
   const API = `${API_BASE}/api/auth`;
 
@@ -61,7 +61,7 @@
         logoutBtn.addEventListener("click", async (e) => {
           e.preventDefault();
           await request("/logout", { method: "POST", body: JSON.stringify({ all_devices: false }) });
-          toast("ÄĂ£ Ä‘Äƒng xuáº¥t");
+          toast("Signed out");
           window.location.href = "/index.html";
         });
       }
@@ -91,7 +91,7 @@
             method: "POST",
             body: JSON.stringify(payload)
           });
-          toast(`ÄÄƒng nháº­p thĂ nh cĂ´ng: ${data.username}`);
+          toast(`Signed in: ${data.username}`);
           window.location.href = "/account.html";
         } catch (err) {
           toast(err.message || "Login failed");
@@ -100,6 +100,18 @@
     }
 
     const registerForm = document.getElementById("register-form");
+    if (registerForm) {
+      const fields = document.getElementById("registration-fields");
+      const status = document.getElementById("registration-status");
+      request("/config").then((config) => {
+        const enabled = config.registration_enabled === true;
+        if (fields) fields.disabled = !enabled;
+        if (status) status.textContent = enabled ? "Registration is available. Read the account-data disclosure before submitting." : "New registrations are temporarily paused. Existing members can still sign in.";
+      }).catch(() => {
+        if (fields) fields.disabled = true;
+        if (status) status.textContent = "Registration availability could not be verified. Please try again later.";
+      });
+    }
     if (registerForm) {
       registerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -112,7 +124,7 @@
         };
         try {
           await request("/register", { method: "POST", body: JSON.stringify(payload) });
-          toast("ÄÄƒng kĂ½ thĂ nh cĂ´ng");
+          toast("Account created");
           window.location.href = "/account.html";
         } catch (err) {
           toast(err.message || "Register failed");
@@ -123,7 +135,7 @@
     const accountMe = document.getElementById("account-me");
     if (accountMe) {
       bindAuthWidgets().then((user) => {
-        accountMe.textContent = user ? `${user.username} (${user.email})` : "ChÆ°a Ä‘Äƒng nháº­p";
+        accountMe.textContent = user ? `${user.username} (${user.email})` : "Not signed in";
       });
     }
 
@@ -131,18 +143,17 @@
     if (adminStats) {
       request("/admin/stats", { method: "GET" })
         .then((stats) => {
-          adminStats.innerHTML = `<li>Tá»•ng user: ${stats.total_users}</li><li>Active user: ${stats.active_users}</li><li>Session Ä‘ang hoáº¡t Ä‘á»™ng: ${stats.active_sessions}</li>`;
+          adminStats.innerHTML = `<li>Total users: ${stats.total_users}</li><li>Active users: ${stats.active_users}</li><li>Active sessions: ${stats.active_sessions}</li>`;
         })
         .catch(() => {
-          adminStats.innerHTML = "<li>KhĂ´ng cĂ³ quyá»n admin hoáº·c chÆ°a Ä‘Äƒng nháº­p.</li>";
+          adminStats.innerHTML = "<li>Administrator access required.</li>";
         });
     }
   };
 
   document.addEventListener("DOMContentLoaded", async () => {
-    await bindAuthWidgets();
     bindAuthForms();
+    await bindAuthWidgets();
   });
 })();
-
 

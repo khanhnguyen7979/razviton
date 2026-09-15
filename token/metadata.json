@@ -6,5 +6,7 @@
   "external_url": "https://razviton.onrender.com",
   "mint": "46cSSTLmuQYUwdTZY24oPV1eMwFJ9QWR7n2HBPCsXXdT",
   "network": "Solana Mainnet",
-  "decimals": 6
+  "decimals": 6,
+  "verification_status": "UNVERIFIED",
+  "verification_note": "Network, mint and decimals are project source declarations, not independently verified by this website. No sale, listing or security certification is asserted."
 }

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 def _trim_str(v: str) -> str:
@@ -8,6 +8,11 @@ def _trim_str(v: str) -> str:
 
 
 class RegisterRequest(BaseModel):
+    @field_validator("username", "email", mode="before")
+    @classmethod
+    def trim_identity(cls, value):
+        return value.strip() if isinstance(value, str) else value
+
     username: str = Field(min_length=3, max_length=100)
     email: str = Field(min_length=5, max_length=255)
     password: str = Field(min_length=8, max_length=128)
@@ -17,10 +22,15 @@ class RegisterRequest(BaseModel):
         return self.email.strip().lower()
 
     def normalized_username(self) -> str:
-        return self.username.strip()
+        return self.username.strip().lower()
 
 
 class LoginRequest(BaseModel):
+    @field_validator("identifier", mode="before")
+    @classmethod
+    def trim_identifier(cls, value):
+        return value.strip() if isinstance(value, str) else value
+
     identifier: str = Field(min_length=3, max_length=255)
     password: str = Field(min_length=8, max_length=128)
 

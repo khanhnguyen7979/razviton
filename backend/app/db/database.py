@@ -1,10 +1,11 @@
 from __future__ import annotations
 from pathlib import Path
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
-DATA_DIR = BACKEND_DIR / "data"
+DATA_DIR = Path(os.getenv("RAZVITON_DATA_DIR", str(BACKEND_DIR / "data"))).resolve()
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 DB_PATH = DATA_DIR / "razviton.db"
 DATABASE_URL = f"sqlite:///{DB_PATH.as_posix()}"
